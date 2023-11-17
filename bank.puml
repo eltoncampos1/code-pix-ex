@@ -1,0 +1,39 @@
+@startuml Banks
+entity "BankAccount" {
+  id: uuid
+  account_number: string
+  owner_name: string
+  balance: int
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+entity "PixKey" {
+  id: uuid
+  kind: string
+  key: string
+  status: string
+  created_at: timestamp
+  updated_at: timestamp
+  account_id: fk
+}
+
+entity "Transaction" {
+  id: uuid
+  external_id: uuid
+  amount: int
+  status: string
+  description: string
+  cancel_description
+  pix_key_key: string
+  pix_key_kind: string
+  created_at: timestamp
+  updated_at: timestamp
+  bank_account_from_id: uuid
+  pix_key_to: fk
+  account_from: fk
+}
+
+Transaction -- "1" PixKey : belongs to
+Transaction -- "1" BankAccount: belongs to
+@enduml

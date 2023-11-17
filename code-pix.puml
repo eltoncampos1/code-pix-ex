@@ -1,0 +1,47 @@
+@startuml codepix
+entity "Bank" {
+  id: uuid
+  code: string
+  name: string
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+entity "Account" {
+  id: uuid
+  owner_name: string
+  number: string
+  created_at: timestamp
+  updated_at: timestamp
+  bank_id: fk
+}
+
+entity "PixKey" {
+  id: uuid
+  kind: string
+  key: string
+  status: string
+  created_at: timestamp
+  updated_at: timestamp
+  account_id: fk
+}
+
+entity "Transaction" {
+  id: uuid
+  amount: int
+  status: string
+  description: string
+  cancel_description
+  created_at: timestamp
+  updated_at: timestamp
+  pix_key_to: fk
+  account_from: fk
+}
+
+
+Bank "1" *-- "many" Account : contains
+Account "1" *-- "many" PixKey : contains
+Transaction -- "1" PixKey : belongs to
+Transaction -- "1" Account : belongs to
+
+@enduml
